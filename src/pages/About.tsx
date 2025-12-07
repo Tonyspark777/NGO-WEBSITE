@@ -133,7 +133,6 @@ export default function About({ onNavigate }: AboutProps = {}) {
               </p>
             </motion.div>
           </div>
-        </div>
       </section>
 
       {/* Objectives */}
