@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from "framer-motion";
-import { Eye, Target, Users, Award } from 'lucide-react';
+import { Eye, Target, Users, Award, BookOpen, BarChart3 } from 'lucide-react';
 
 interface AboutProps {
   onNavigate?: (page: string) => void;
