@@ -2,7 +2,11 @@ import React from 'react';
 import { motion } from "framer-motion";
 import { Eye, Target, Users, Award } from 'lucide-react';
 
-export default function About() {
+interface AboutProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function About({ onNavigate }: AboutProps = {}) {
   const leaders = [
     { name: 'Frank', title: 'Founder & Executive Director', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/93d272f2c_Frank.jpg' },
     { name: 'Chimdindu Eze', title: 'Treasurer (Finance & Audit)', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/a73c44201_Chimdindu.jpeg' },
@@ -19,20 +23,20 @@ export default function About() {
       description: "Provide accessible diabetes screening in rural communities where healthcare resources are limited."
     },
     {
-      icon: Target,
-      title: "Education & Awareness",
-      description: "Educate communities about diabetes prevention, management, and healthy lifestyle choices."
-    },
-    {
       icon: Users,
       title: "Community Support",
       description: "Build sustainable support networks for individuals living with diabetes in underserved areas."
     },
     {
-      icon: Award,
-      title: "Data-Driven Solutions",
-      description: "Use technology and data analytics to improve healthcare delivery and track community health outcomes."
-    }
+      icon: BookOpen,
+      title: "Education & Awareness",
+      description: "Expand reach through collaboration with healthcare providers and community leaders."
+    },
+    {
+      icon: BarChart3,
+      title: "Data-Centric Solutions",
+      description: "Use mapping and analytics to guide targeted interventions and policy recommendations."
+    },
   ];
 
   return (
@@ -46,7 +50,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            About Rethink Initiative
+            About Rethink Initiative for Health
           </motion.h1>
           <motion.p 
             className="text-xl text-gray-600 leading-relaxed"
@@ -54,9 +58,11 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            We are a non-profit organization committed to transforming diabetes care 
-            in rural Nigeria through innovative technology, community engagement, 
-            and sustainable healthcare solutions.
+            Rethink Initiative was born from the belief that diabetes requires a complete rethinking in Nigeria — from awareness to prevention and early detection. Diabetes is often preventable, manageable, and undetected, yet access to knowledge and care remains limited.
+            <br /><br />
+            We use data and technology to map diabetes across Nigeria, building the first national database of prevalence, incidence, and burden. These insights drive targeted interventions that empower communities and produce measurable outcomes.
+            <br /><br />
+            We work from the grassroots upward, ensuring local efforts contribute to national transformation. Through education, screenings, and healthcare partnerships, we bring resources and knowledge to every Nigerian household.
           </motion.p>
         </div>
       </section>
@@ -77,9 +83,7 @@ export default function About() {
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Mission</h3>
               <p className="text-gray-600 leading-relaxed">
-                To provide accessible, technology-driven diabetes care and education 
-                to underserved communities in rural Nigeria, empowering individuals 
-                to manage their health effectively.
+                To transform diabetes awareness and care in Nigeria through data, technology, and community engagement, ensuring everyone has the knowledge, tools, and support they need.
               </p>
             </motion.div>
 
@@ -95,9 +99,7 @@ export default function About() {
               </div>
               <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Vision</h3>
               <p className="text-gray-600 leading-relaxed">
-                A Nigeria where every individual, regardless of location or economic status, 
-                has access to quality diabetes care, education, and the tools needed 
-                for a healthy life.
+                A Nigeria where the burden of diabetes is drastically reduced, every individual understands the disease, and communities are empowered to prevent, detect, and manage it effectively.
               </p>
             </motion.div>
 
@@ -111,10 +113,23 @@ export default function About() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Users className="w-8 h-8 text-green-600" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Values</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Goal</h3>
               <p className="text-gray-600 leading-relaxed">
-                Compassion, Innovation, Accessibility, Community-driven solutions, 
-                Data-informed decisions, and Sustainable impact in everything we do.
+                To reduce the national burden of diabetes through evidence-based education, accessible screening, community engagement, and real-time data mapping.
+              </p>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="text-center p-8 bg-white rounded-xl shadow-lg mt-8"
+          >
+            <h3 className="text-2xl font-bold mb-4 text-gray-900">Our Values</h3>
+            <p className="text-gray-600 leading-relaxed text-lg">
+              <strong>Empathy</strong> | <strong>Innovation</strong> | <strong>Integrity</strong> | <strong>Impact</strong>
               </p>
             </motion.div>
           </div>
@@ -218,23 +233,16 @@ export default function About() {
         >
           <h2 className="text-3xl font-bold mb-4">Join Our Mission</h2>
           <p className="text-lg text-red-100 mb-8">
-            Together, we can make diabetes care accessible to every Nigerian, 
-            regardless of where they live or their economic circumstances.
+            Together, we can beat diabetes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <motion.button
+              onClick={() => onNavigate('volunteer')}
               className="inline-flex items-center rounded-lg bg-white px-8 py-3 text-red-600 font-medium shadow hover:bg-gray-100"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Volunteer With Us
-            </motion.button>
-            <motion.button
-              className="inline-flex items-center rounded-lg border border-white px-8 py-3 text-white font-medium hover:bg-white hover:text-red-600"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Support Our Work
+              Get Involved
             </motion.button>
           </div>
         </motion.div>

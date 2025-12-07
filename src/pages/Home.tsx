@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { motion } from "framer-motion";
-import { Heart, Users, Globe, Award, ArrowRight } from 'lucide-react';
+import { Heart, Users, Globe, Award, ArrowRight, TestTube, Stethoscope, BarChart3, BookOpen } from 'lucide-react';
 
 interface HomeProps {
   onNavigate: (page: string) => void;
@@ -8,10 +8,14 @@ interface HomeProps {
 
 export default function Home({ onNavigate }: HomeProps) {
   const impactStats = [
-    { number: '500+', label: 'People Screened', icon: Heart },
-    { number: '1,200+', label: 'Test Strips Provided', icon: Globe },
-    { number: '12', label: 'Communities Reached', icon: Users },
-    { number: '24/7', label: 'Health Monitoring', icon: Award },
+    { number: '774 LGA & 36 States', label: 'Targeted', icon: Globe },
+    { number: '150+', label: 'People Reached', icon: Users },
+    { number: '3', label: 'Communities Engaged', icon: Heart },
+    { number: '150+', label: 'Diabetes Screenings', icon: Award },
+    { number: '300+', label: 'Test Strips Distributed', icon: TestTube },
+    { number: '5', label: 'Healthcare Partnerships', icon: Stethoscope },
+    { number: '150', label: 'Data Points Collected', icon: BarChart3 },
+    { number: '80%+', label: 'Improved Diabetes Literacy', icon: BookOpen },
   ];
 
   useEffect(() => {
@@ -99,16 +103,16 @@ export default function Home({ onNavigate }: HomeProps) {
               className="lg:w-2/5 text-center lg:text-left"
             >
               <motion.h1 
-                className="text-4xl sm:text-6xl font-extrabold leading-tight text-gray-900"
+                className="text-4xl sm:text-5xl font-extrabold leading-tight text-gray-900"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Empowering <motion.span 
+                Building a Nigeria That <motion.span 
                   className="text-red-600"
                   animate={{ color: ['#dc2626', '#ef4444', '#dc2626'] }}
                   transition={{ duration: 3, repeat: Infinity }}
-                >Diabetes Care</motion.span> in Rural Nigeria
+                >Understands Diabetes</motion.span>
               </motion.h1>
               <motion.p 
                 className="mt-6 text-lg sm:text-xl text-gray-600 leading-relaxed"
@@ -116,8 +120,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
-                Using data and technology to provide accessible diabetes screening, 
-                education, and support to underserved communities across Nigeria.
+                Using data and technology, we empower communities to prevent, detect, and manage diabetes—turning local insights into actions that drive national transformation.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -126,21 +129,13 @@ export default function Home({ onNavigate }: HomeProps) {
                 className="mt-8 flex justify-center lg:justify-start gap-4"
               >
                 <motion.button
-                  onClick={() => onNavigate('support')}
+                  onClick={() => onNavigate('volunteer')}
                   className="inline-flex items-center rounded-lg bg-red-600 px-6 py-3 text-white font-medium shadow hover:bg-red-700"
                   whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(239, 68, 68, 0.4)" }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Donate Now
+                  Get Involved
                   <ArrowRight size={20} className="ml-2" />
-                </motion.button>
-                <motion.button
-                  onClick={() => onNavigate('volunteer')}
-                  className="inline-flex items-center rounded-lg border border-gray-300 px-6 py-3 text-gray-700 font-medium hover:bg-gray-100"
-                  whileHover={{ scale: 1.05, borderColor: '#dc2626' }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Join Us
                 </motion.button>
               </motion.div>
             </motion.div>
@@ -204,9 +199,9 @@ export default function Home({ onNavigate }: HomeProps) {
             className="text-center mb-12"
           >
             <h2 className="text-3xl font-bold mb-4">Our Impact So Far</h2>
-            <p className="text-red-100 text-lg">Making a difference one community at a time</p>
+            <p className="text-red-100 text-lg">Turning Awareness into Action Across Nigeria</p>
           </motion.div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
             {impactStats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -215,7 +210,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.2 }}
                 whileHover={{ scale: 1.1 }}
-                className="p-4 group cursor-pointer"
+                className="p-3 group cursor-pointer"
               >
                 <motion.div
                   className="mb-2"
@@ -225,7 +220,7 @@ export default function Home({ onNavigate }: HomeProps) {
                   <stat.icon size={32} className="mx-auto text-white/80 group-hover:text-white transition-colors" />
                 </motion.div>
                 <motion.div 
-                  className="text-4xl font-bold mb-1"
+                  className="text-2xl lg:text-3xl font-bold mb-1"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -234,7 +229,7 @@ export default function Home({ onNavigate }: HomeProps) {
                   {stat.number}
                 </motion.div>
                 <motion.div 
-                  className="text-base text-red-100"
+                  className="text-sm text-red-100"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
@@ -263,18 +258,20 @@ export default function Home({ onNavigate }: HomeProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            About Rethink Initiative
+            About Rethink Initiative for Health
           </motion.h2>
           <motion.p 
-            className="text-lg text-gray-600 max-w-4xl mx-auto mb-8"
+            className="text-lg text-gray-600 max-w-5xl mx-auto mb-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Rethink Initiative is a non-profit organization dedicated to combating diabetes 
-            in rural Nigeria through innovative healthcare solutions, community education, 
-            and accessible screening programs.
+            Rethink Initiative was born from the belief that diabetes requires a complete rethinking in Nigeria — from awareness to prevention and early detection. Diabetes is often preventable, manageable, and undetected, yet access to knowledge and care remains limited.
+            <br /><br />
+            We use data and technology to map diabetes across Nigeria, building the first national database of prevalence, incidence, and burden. These insights drive targeted interventions that empower communities and produce measurable outcomes.
+            <br /><br />
+            We work from the grassroots upward, ensuring local efforts contribute to national transformation. Through education, screenings, and healthcare partnerships, we bring resources and knowledge to every Nigerian household.
           </motion.p>
           <motion.button
             onClick={() => onNavigate('about')}
@@ -288,6 +285,30 @@ export default function Home({ onNavigate }: HomeProps) {
           >
             Learn More About Us
             <ArrowRight size={20} className="ml-2" />
+          </motion.button>
+        </motion.div>
+      </section>
+
+      {/* Join Our Mission */}
+      <section className="py-20 bg-red-600 text-white px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <h2 className="text-3xl font-bold mb-4">Join Our Mission</h2>
+          <p className="text-lg text-red-100 mb-8">
+            Together, we can beat diabetes.
+          </p>
+          <motion.button
+            onClick={() => onNavigate('volunteer')}
+            className="inline-flex items-center rounded-lg bg-white px-8 py-3 text-red-600 font-medium shadow hover:bg-gray-100"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Get Involved
           </motion.button>
         </motion.div>
       </section>

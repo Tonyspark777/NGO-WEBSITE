@@ -28,7 +28,7 @@ export default function App() {
       case 'home':
         return <Home onNavigate={handleNavigate} />;
       case 'about':
-        return <About />;
+        return <About onNavigate={handleNavigate} />;
       case 'programs':
         return <Programs />;
       case 'events':
