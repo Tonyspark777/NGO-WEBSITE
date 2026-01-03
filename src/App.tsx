@@ -8,6 +8,7 @@ import Events from './pages/Events';
 import Volunteer from './pages/Volunteer';
 import Support from './pages/Support';
 import Contact from './pages/Contact';
+import Dashboard from './pages/Dashboard';
 import EventDetail from './pages/EventDetail';
 
 export default function App() {
@@ -39,6 +40,8 @@ export default function App() {
         return <Support />;
       case 'contact':
         return <Contact />;
+      case 'dashboard':
+        return <Dashboard />;
       case 'event-detail':
         return <EventDetail eventId={eventId || ''} onNavigate={handleNavigate} />;
       default:

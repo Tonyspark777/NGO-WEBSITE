@@ -15,6 +15,7 @@ export default function Header({ currentPage, onNavigate }: HeaderProps) {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About Us' },
     { id: 'programs', label: 'Programs' },
+    { id: 'dashboard', label: 'Dashboard' },
     { id: 'events', label: 'Events' },
     { id: 'contact', label: 'Contact' },
   ];
