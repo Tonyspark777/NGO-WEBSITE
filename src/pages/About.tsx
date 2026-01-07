@@ -9,8 +9,8 @@ interface AboutProps {
 export default function About({ onNavigate }: AboutProps = {}) {
   const leaders = [
     { name: 'Frank', title: 'Founder & Executive Director', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/93d272f2c_Frank.jpg' },
-    { name: 'Chimdindu Eze', title: 'Treasurer (Finance & Audit)', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/a73c44201_Chimdindu.jpeg' },
-    { name: 'Oluebube Okoli', title: 'Director, Health & Nutrition', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/646adc35d_Oluebube.jpg' },
+    { name: 'Chimdindu Eze', title: 'Treasurer (Finance & Audit)', img: '/chimdindu_eze.png' },
+    { name: 'Oluebube Okoli', title: 'Director, Health & Nutrition', img: '/oluebube_okoli.png' },
     { name: 'Sylvia Uchechi', title: 'Director, Programs & Operations', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/ddb9e7c28_Sylvia.jpg' },
     { name: 'Anthony Fumen Yawa', title: 'Director, Research & Data Science', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/a061cce10_Anthonyfumen.jpg' },
     { name: 'Farouk Umar Adams', title: 'Director, Fundraising & Partnerships', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/dbc84caed_Farouk.jpg' },
