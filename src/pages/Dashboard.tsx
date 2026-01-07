@@ -151,7 +151,7 @@ export default function Dashboard() {
             <div className="flex flex-wrap justify-center gap-4 text-sm">
               <div className="flex items-center gap-2">
                 <Calendar size={16} />
-                <span>World Diabetes Day 2024</span>
+                <span>World Diabetes Day 2025</span>
               </div>
               <div className="flex items-center gap-2">
                 <MapPin size={16} />
