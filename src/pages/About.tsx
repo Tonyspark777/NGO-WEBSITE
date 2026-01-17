@@ -13,7 +13,7 @@ export default function About({ onNavigate }: AboutProps = {}) {
     { name: 'Oluebube Okoli', title: 'Director, Health & Nutrition', img: '/oluebube_okoli.png' },
     { name: 'Sylvia Uchechi', title: 'Director, Programs & Operations', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/ddb9e7c28_Sylvia.jpg' },
     { name: 'Anthony Fumen Yawa', title: 'Director, Research & Data Science', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/a061cce10_Anthonyfumen.jpg' },
-    { name: 'Farouk Umar Adams', title: 'Director, Fundraising & Partnerships', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/dbc84caed_Farouk.jpg' },
+    { name: 'Farouk Umar Adams', title: 'Director of Digital Health Technology', img: 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68cbc888df1576afba05c1c7/dbc84caed_Farouk.jpg' },
   ];
 
   const objectives = [
