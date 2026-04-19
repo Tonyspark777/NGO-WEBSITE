@@ -19,58 +19,64 @@ export default function Home({ onNavigate }: HomeProps) {
   ];
 
   useEffect(() => {
-    // Globe script for the global impact section
-    const globeScript = document.createElement('script');
-    globeScript.type = 'module';
-    globeScript.textContent = `
-      import createGlobe from 'https://cdn.skypack.dev/cobe';
-
-      let phi = 0;
-      let canvas = document.getElementById("health-globe");
-
-      if (canvas && !canvas.getAttribute('data-globe-initialized')) {
-        canvas.setAttribute('data-globe-initialized', 'true');
-        
-        const globe = createGlobe(canvas, {
-          devicePixelRatio: 2,
-          width: 600,
-          height: 600,
-          phi: 0,
-          theta: 0,
-          dark: 0,
-          diffuse: 1.2,
-          scale: 1,
-          mapSamples: 16000,
-          mapBrightness: 6,
-          baseColor: [0.9, 0.9, 0.9],
-          markerColor: [0.8, 0.2, 0.3],
-          glowColor: [0.9, 0.4, 0.5],
-          offset: [0, 0],
-          markers: [
-            { location: [6.5244, 3.3792], size: 0.08 },
-            { location: [9.0579, 8.6753], size: 0.05 },
-            { location: [0, 0], size: 0.03 },
-            { location: [-1.2921, 36.8219], size: 0.04 },
-            { location: [15.5007, 32.5599], size: 0.03 },
-            { location: [3.8480, 11.5021], size: 0.03 },
-          ],
-          onRender: (state) => {
-            state.phi = phi;
-            phi += 0.003;
-          },
-        });
-      }
-    `;
+    // Initialize globe with proper package
+    let globeInstance: any = null;
     
-    document.body.appendChild(globeScript);
-
-    return () => {
-      const scripts = document.querySelectorAll('script[type="module"]');
-      scripts.forEach(s => {
-        if (s.textContent.includes('createGlobe')) {
-          s.remove();
+    const initGlobe = async () => {
+      try {
+        const createGlobe = (await import('cobe')).default;
+        const canvas = document.getElementById("health-globe") as HTMLCanvasElement;
+        
+        if (canvas && !canvas.getAttribute('data-globe-initialized')) {
+          canvas.setAttribute('data-globe-initialized', 'true');
+          
+          let phi = 0;
+          
+          globeInstance = createGlobe(canvas, {
+            devicePixelRatio: 2,
+            width: 600,
+            height: 600,
+            phi: 0,
+            theta: 0,
+            dark: 0,
+            diffuse: 1.2,
+            scale: 1,
+            mapSamples: 16000,
+            mapBrightness: 6,
+            baseColor: [0.9, 0.9, 0.9],
+            markerColor: [0.8, 0.2, 0.3],
+            glowColor: [0.9, 0.4, 0.5],
+            offset: [0, 0],
+            markers: [
+              { location: [6.5244, 3.3792], size: 0.08 }, // Lagos, Nigeria
+              { location: [9.0579, 8.6753], size: 0.05 }, // Abuja, Nigeria
+              { location: [7.0498, 4.2436], size: 0.06 }, // Anambra, Nigeria
+              { location: [11.8846, 13.1579], size: 0.04 }, // Kano, Nigeria
+              { location: [4.8156, 7.0498], size: 0.03 }, // Port Harcourt, Nigeria
+              { location: [5.6037, 5.6037], size: 0.03 }, // Benin City, Nigeria
+            ],
+            onRender: (state) => {
+              state.phi = phi;
+              phi += 0.003;
+            },
+          });
         }
-      });
+      } catch (error) {
+        console.warn('Globe initialization failed:', error);
+        // Fallback: hide globe container if it fails
+        const canvas = document.getElementById("health-globe");
+        if (canvas) {
+          canvas.style.display = 'none';
+        }
+      }
+    };
+    
+    initGlobe();
+    
+    return () => {
+      if (globeInstance && typeof globeInstance.destroy === 'function') {
+        globeInstance.destroy();
+      }
       const canvas = document.getElementById("health-globe");
       if (canvas) {
         canvas.removeAttribute('data-globe-initialized');
