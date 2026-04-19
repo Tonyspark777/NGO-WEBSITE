@@ -19,69 +19,72 @@ export default function Home({ onNavigate }: HomeProps) {
   ];
 
   useEffect(() => {
-    // Initialize globe with proper package
-    let globeInstance: any = null;
-    
-    const initGlobe = async () => {
-      try {
-        const createGlobe = (await import('cobe')).default;
-        const canvas = document.getElementById("health-globe") as HTMLCanvasElement;
+    // Simple fallback - replace globe with a static image or illustration
+    const canvas = document.getElementById("health-globe") as HTMLCanvasElement;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        // Set canvas size
+        canvas.width = 600;
+        canvas.height = 600;
         
-        if (canvas && !canvas.getAttribute('data-globe-initialized')) {
-          canvas.setAttribute('data-globe-initialized', 'true');
+        // Create a simple animated circle with gradient
+        let rotation = 0;
+        
+        const animate = () => {
+          ctx.clearRect(0, 0, 600, 600);
           
-          let phi = 0;
+          // Create gradient
+          const gradient = ctx.createRadialGradient(300, 300, 50, 300, 300, 250);
+          gradient.addColorStop(0, '#ef4444');
+          gradient.addColorStop(0.5, '#dc2626');
+          gradient.addColorStop(1, '#b91c1c');
           
-          globeInstance = createGlobe(canvas, {
-            devicePixelRatio: 2,
-            width: 600,
-            height: 600,
-            phi: 0,
-            theta: 0,
-            dark: 0,
-            diffuse: 1.2,
-            scale: 1,
-            mapSamples: 16000,
-            mapBrightness: 6,
-            baseColor: [0.9, 0.9, 0.9],
-            markerColor: [0.8, 0.2, 0.3],
-            glowColor: [0.9, 0.4, 0.5],
-            offset: [0, 0],
-            markers: [
-              { location: [6.5244, 3.3792], size: 0.08 }, // Lagos, Nigeria
-              { location: [9.0579, 8.6753], size: 0.05 }, // Abuja, Nigeria
-              { location: [7.0498, 4.2436], size: 0.06 }, // Anambra, Nigeria
-              { location: [11.8846, 13.1579], size: 0.04 }, // Kano, Nigeria
-              { location: [4.8156, 7.0498], size: 0.03 }, // Port Harcourt, Nigeria
-              { location: [5.6037, 5.6037], size: 0.03 }, // Benin City, Nigeria
-            ],
-            onRender: (state) => {
-              state.phi = phi;
-              phi += 0.003;
-            },
+          // Draw main circle
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(300, 300, 200, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Draw rotating elements to simulate globe
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+          ctx.lineWidth = 2;
+          
+          for (let i = 0; i < 8; i++) {
+            const angle = (rotation + i * Math.PI / 4);
+            const x1 = 300 + Math.cos(angle) * 150;
+            const y1 = 300 + Math.sin(angle) * 150;
+            const x2 = 300 + Math.cos(angle) * 180;
+            const y2 = 300 + Math.sin(angle) * 180;
+            
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+          }
+          
+          // Add some dots for locations
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+          const locations = [
+            { x: 320, y: 280 }, // Lagos area
+            { x: 300, y: 250 }, // Abuja area
+            { x: 310, y: 290 }, // Anambra area
+            { x: 290, y: 230 }, // Kano area
+          ];
+          
+          locations.forEach(loc => {
+            ctx.beginPath();
+            ctx.arc(loc.x, loc.y, 4, 0, Math.PI * 2);
+            ctx.fill();
           });
-        }
-      } catch (error) {
-        console.warn('Globe initialization failed:', error);
-        // Fallback: hide globe container if it fails
-        const canvas = document.getElementById("health-globe");
-        if (canvas) {
-          canvas.style.display = 'none';
-        }
+          
+          rotation += 0.01;
+          requestAnimationFrame(animate);
+        };
+        
+        animate();
       }
-    };
-    
-    initGlobe();
-    
-    return () => {
-      if (globeInstance && typeof globeInstance.destroy === 'function') {
-        globeInstance.destroy();
-      }
-      const canvas = document.getElementById("health-globe");
-      if (canvas) {
-        canvas.removeAttribute('data-globe-initialized');
-      }
-    };
+    }
   }, []);
 
   return (
