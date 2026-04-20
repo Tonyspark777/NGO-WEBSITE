@@ -8,12 +8,14 @@ export default function Globe() {
     if (!canvas) return;
 
     let phi = 0;
-    let animationId: number;
+    let destroyed = false;
 
     const loadGlobe = async () => {
       try {
         const createGlobe = (await import('cobe')).default;
-        
+
+        if (destroyed) return;
+
         const globe = createGlobe(canvas, {
           devicePixelRatio: 2,
           width: 600,
@@ -30,12 +32,12 @@ export default function Globe() {
           glowColor: [0.9, 0.4, 0.5],
           offset: [0, 0],
           markers: [
-            { location: [6.5244, 3.3792], size: 0.08 }, // Lagos
-            { location: [9.0579, 8.6753], size: 0.05 }, // Abuja
-            { location: [6.2088, 6.9915], size: 0.03 }, // Anambra
-            { location: [12.0022, 8.5919], size: 0.04 }, // Kano
-            { location: [4.8156, 7.0498], size: 0.03 }, // Port Harcourt
-            { location: [6.3350, 5.6037], size: 0.03 }, // Benin City
+            { location: [6.5244, 3.3792], size: 0.08 },
+            { location: [9.0579, 8.6753], size: 0.05 },
+            { location: [6.2088, 6.9915], size: 0.03 },
+            { location: [12.0022, 8.5919], size: 0.04 },
+            { location: [4.8156, 7.0498], size: 0.03 },
+            { location: [6.3350, 5.6037], size: 0.03 },
           ],
           onRender: (state) => {
             state.phi = phi;
@@ -43,21 +45,22 @@ export default function Globe() {
           },
         });
 
-        return () => {
-          globe.destroy();
-        };
+        if (!destroyed) {
+          return () => globe.destroy();
+        }
       } catch (error) {
         console.error('Failed to load globe:', error);
       }
     };
 
-    const cleanup = loadGlobe();
+    loadGlobe().then(cleanup => {
+      if (cleanup) {
+        return () => cleanup();
+      }
+    });
 
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
-      cleanup?.then(destroyGlobe => destroyGlobe?.());
+      destroyed = true;
     };
   }, []);
 
