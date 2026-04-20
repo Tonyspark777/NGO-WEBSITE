@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Heart, Users, Globe, Award, ArrowRight, TestTube, Stethoscope, BarChart3, BookOpen } from 'lucide-react';
+import GlobeComponent from '../components/Globe';
 
 interface HomeProps {
   onNavigate: (page: string) => void;
@@ -17,66 +18,6 @@ export default function Home({ onNavigate }: HomeProps) {
     { number: '150', label: 'Data Points Collected', icon: BarChart3 },
     { number: '80%+', label: 'Improved Diabetes Literacy', icon: BookOpen },
   ];
-
-  useEffect(() => {
-    // Globe script for the global impact section
-    const globeScript = document.createElement('script');
-    globeScript.type = 'module';
-    globeScript.textContent = `
-      import createGlobe from 'https://cdn.skypack.dev/cobe';
-
-      let phi = 0;
-      let canvas = document.getElementById("health-globe");
-
-      if (canvas && !canvas.getAttribute('data-globe-initialized')) {
-        canvas.setAttribute('data-globe-initialized', 'true');
-        
-        const globe = createGlobe(canvas, {
-          devicePixelRatio: 2,
-          width: 600,
-          height: 600,
-          phi: 0,
-          theta: 0,
-          dark: 0,
-          diffuse: 1.2,
-          scale: 1,
-          mapSamples: 16000,
-          mapBrightness: 6,
-          baseColor: [0.9, 0.9, 0.9],
-          markerColor: [0.8, 0.2, 0.3],
-          glowColor: [0.9, 0.4, 0.5],
-          offset: [0, 0],
-          markers: [
-            { location: [6.5244, 3.3792], size: 0.08 },
-            { location: [9.0579, 8.6753], size: 0.05 },
-            { location: [0, 0], size: 0.03 },
-            { location: [-1.2921, 36.8219], size: 0.04 },
-            { location: [15.5007, 32.5599], size: 0.03 },
-            { location: [3.8480, 11.5021], size: 0.03 },
-          ],
-          onRender: (state) => {
-            state.phi = phi;
-            phi += 0.003;
-          },
-        });
-      }
-    `;
-    
-    document.body.appendChild(globeScript);
-
-    return () => {
-      const scripts = document.querySelectorAll('script[type="module"]');
-      scripts.forEach(s => {
-        if (s.textContent.includes('createGlobe')) {
-          s.remove();
-        }
-      });
-      const canvas = document.getElementById("health-globe");
-      if (canvas) {
-        canvas.removeAttribute('data-globe-initialized');
-      }
-    };
-  }, []);
 
   return (
     <div>
@@ -153,15 +94,13 @@ export default function Home({ onNavigate }: HomeProps) {
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 4, repeat: Infinity }}
                 ></motion.div>
-                <motion.canvas
-                  id="health-globe"
-                  style={{ width: '450px', height: '450px' }}
-                  width="600"
-                  height="600"
+                <motion.div
                   className="relative z-10"
                   animate={{ rotateY: [0, 5, 0] }}
                   transition={{ duration: 8, repeat: Infinity }}
-                ></motion.canvas>
+                >
+                  <GlobeComponent />
+                </motion.div>
                 <motion.div 
                   className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg"
                   initial={{ opacity: 0, scale: 0.8 }}
