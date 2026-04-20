@@ -19,55 +19,61 @@ export default function Home({ onNavigate }: HomeProps) {
   ];
 
   useEffect(() => {
-    let phi = 0;
-    let globe: any = null;
+    // Globe script for the global impact section
+    const globeScript = document.createElement('script');
+    globeScript.type = 'module';
+    globeScript.textContent = `
+      import createGlobe from 'https://cdn.skypack.dev/cobe';
 
-    const initGlobe = async () => {
-      try {
-        const createGlobe = (await import('cobe')).default;
-        const canvas = document.getElementById("health-globe") as HTMLCanvasElement;
+      let phi = 0;
+      let canvas = document.getElementById("health-globe");
+
+      if (canvas && !canvas.getAttribute('data-globe-initialized')) {
+        canvas.setAttribute('data-globe-initialized', 'true');
         
-        if (canvas) {
-          globe = createGlobe(canvas, {
-            devicePixelRatio: 2,
-            width: 600 * 2,
-            height: 600 * 2,
-            phi: 0,
-            theta: 0.3,
-            dark: 0,
-            diffuse: 1.2,
-            mapSamples: 16000,
-            mapBrightness: 6,
-            baseColor: [0.3, 0.3, 0.3],
-            markerColor: [0.1, 0.8, 1],
-            glowColor: [1, 1, 1],
-            markers: [
-              // Nigeria locations
-              { location: [6.5244, 3.3792], size: 0.03 }, // Lagos
-              { location: [9.0765, 7.3986], size: 0.05 }, // Abuja
-              { location: [6.2207, 6.9957], size: 0.04 }, // Anambra
-              { location: [12.0022, 8.5920], size: 0.03 }, // Kano
-              { location: [4.8156, 7.0498], size: 0.03 }, // Port Harcourt
-              { location: [6.3350, 5.6037], size: 0.03 }, // Benin City
-            ],
-            onRender: (state: any) => {
-              // Called on every animation frame.
-              // `state` will be an empty object, return updated params.
-              state.phi = phi;
-              phi += 0.01;
-            },
-          });
-        }
-      } catch (error) {
-        console.error('Failed to load globe:', error);
+        const globe = createGlobe(canvas, {
+          devicePixelRatio: 2,
+          width: 600,
+          height: 600,
+          phi: 0,
+          theta: 0,
+          dark: 0,
+          diffuse: 1.2,
+          scale: 1,
+          mapSamples: 16000,
+          mapBrightness: 6,
+          baseColor: [0.9, 0.9, 0.9],
+          markerColor: [0.8, 0.2, 0.3],
+          glowColor: [0.9, 0.4, 0.5],
+          offset: [0, 0],
+          markers: [
+            { location: [6.5244, 3.3792], size: 0.08 },
+            { location: [9.0579, 8.6753], size: 0.05 },
+            { location: [0, 0], size: 0.03 },
+            { location: [-1.2921, 36.8219], size: 0.04 },
+            { location: [15.5007, 32.5599], size: 0.03 },
+            { location: [3.8480, 11.5021], size: 0.03 },
+          ],
+          onRender: (state) => {
+            state.phi = phi;
+            phi += 0.003;
+          },
+        });
       }
-    };
-
-    initGlobe();
+    `;
+    
+    document.body.appendChild(globeScript);
 
     return () => {
-      if (globe) {
-        globe.destroy();
+      const scripts = document.querySelectorAll('script[type="module"]');
+      scripts.forEach(s => {
+        if (s.textContent.includes('createGlobe')) {
+          s.remove();
+        }
+      });
+      const canvas = document.getElementById("health-globe");
+      if (canvas) {
+        canvas.removeAttribute('data-globe-initialized');
       }
     };
   }, []);
